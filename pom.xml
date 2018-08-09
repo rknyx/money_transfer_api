@@ -142,8 +142,8 @@
                 <version>2.21.0</version>
                 <configuration>
                     <forkCount>0</forkCount>
-                    <!--<parallel>classes</parallel>-->
-                    <!--<threadCount>2</threadCount>-->
+                    <parallel>classes</parallel>
+                    <threadCount>2</threadCount>
                     <skip>false</skip>
                 </configuration>
                 <executions>

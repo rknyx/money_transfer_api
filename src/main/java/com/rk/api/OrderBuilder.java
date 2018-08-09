@@ -1,7 +1,7 @@
 package com.rk.api;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.util.Date;
 
 public final class OrderBuilder {
     private Integer id;
@@ -12,7 +12,7 @@ public final class OrderBuilder {
     private String description;
     private OrderStatus status;
     private OrderType orderType;
-    private OffsetDateTime creationDate;
+    private Date creationDate;
 
     private OrderBuilder() {
     }
@@ -61,7 +61,7 @@ public final class OrderBuilder {
         return this;
     }
 
-    public OrderBuilder withCreationDate(OffsetDateTime creationDate) {
+    public OrderBuilder withCreationDate(Date creationDate) {
         this.creationDate = creationDate;
         return this;
     }

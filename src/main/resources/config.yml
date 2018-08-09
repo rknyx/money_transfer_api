@@ -2,9 +2,7 @@ logging:
   level: INFO
   loggers:
     "com.rk": DEBUG
-    "org.apache.activemq": INFO
     io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper: DEBUG
-    "org.hibernate.engine.internal.StatisticalLoggingSessionEventListener": WARN
   appenders:
     - type: console
       threshold: INFO

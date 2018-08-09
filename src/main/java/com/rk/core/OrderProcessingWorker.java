@@ -1,11 +1,9 @@
 package com.rk.core;
 
-import com.google.common.collect.ImmutableSet;
 import com.rk.api.Account;
 import com.rk.api.Currency;
 import com.rk.api.Order;
 import com.rk.api.OrderStatus;
-import com.rk.api.OrderType;
 import com.rk.db.dao.AccountDAO;
 import com.rk.db.dao.ExchangeRateDAO;
 import com.rk.db.dao.OrderDAO;
@@ -17,7 +15,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -40,8 +37,6 @@ public class OrderProcessingWorker implements Consumer<Order> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-    private static final Set TYPES_REQUIRE_SENDER = ImmutableSet.of(OrderType.TRANSFER, OrderType.OUTCOME);
-    private static final Set TYPES_REQUIRE_RECEIVER = ImmutableSet.of(OrderType.TRANSFER, OrderType.INCOME);
     private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
     private final OrderDAO orderDAO;
@@ -69,14 +64,14 @@ public class OrderProcessingWorker implements Consumer<Order> {
         try {
             Account sender = null;
             Account receiver = null;
-            if (TYPES_REQUIRE_SENDER.contains(order.getOrderType())) {
+            if (order.getOrderType().isOutgoing()) {
                 sender = Optional.ofNullable(accountDAO.findById(order.getSenderAccount()))
                         .orElseThrow(() -> new TransferFailException(
                                 String.format(SENDER_ACCOUNT_DOES_NOT_EXIST_MSG, order.getSenderAccount())));
                 decreaseSenderBalance(sender, converter, order);
             }
 
-            if (TYPES_REQUIRE_RECEIVER.contains(order.getOrderType())) {
+            if (order.getOrderType().isIngoing()) {
                 receiver = Optional.ofNullable(accountDAO.findById(order.getReceiverAccount()))
                         .orElseThrow(() -> new TransferFailException(
                                 String.format(RECEIVER_ACCOUNT_DOES_NOT_EXIST_MSG, order.getReceiverAccount())));

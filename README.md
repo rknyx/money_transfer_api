@@ -34,8 +34,8 @@ Money Transfer API contains three resource types:
 Simple transfer scenario:
 
 **Create account A:**  
-It is impossible to create account with non-zero balance. Balance should be updated via orders. Doesn't matter
-what balance is in posted entity, resulting account will have zero balance.  
+It is impossible to create account with non-zero balance. Balance should be updated via orders. It doesn't matter
+what balance is in posted entity, resulting account will have zero balance. 
 POST 127.0.0.1:8080/accounts
 ```json
     {"currency": "USD", "balance": 0.0}
@@ -61,7 +61,7 @@ to make further transaction possible
 POST 127.0.0.1/orders
 ```json
     {
-        "receiverAccount": "<A.ID>",
+        "receiverAccount": 0,
         "operationCurrency": "USD",
         "orderType": "INCOME",
         "amount": 10.0
@@ -72,8 +72,8 @@ POST 127.0.0.1/orders
 POST 127.0.0.1/orders
 ```json
     {
-        "senderAccount": "<A.ID>",
-        "receiverAccount": "<B.ID>",
+        "senderAccount": 0,
+        "receiverAccount": 1,
         "operationCurrency": "EUR",
         "orderType": "TRANSFER",
         "amount": 10.0
@@ -81,22 +81,22 @@ POST 127.0.0.1/orders
 ```
 
 **Check receiver and sender balances:**  
-GET 127.0.0.1/accounts/<A.ID>
+GET 127.0.0.1/accounts/0
 ```json
     {
-        "senderAccount": "<A.ID>",
-        "receiverAccount": "<B.ID>",
+        "senderAccount": 0,
+        "receiverAccount": 1,
         "operationCurrency": "EUR",
         "orderType": "INCOME",
         "amount": 5.0
     }
 ```
 
-GET 127.0.0.1/accounts/<B.ID>
+GET 127.0.0.1/accounts/1
 ```json
     {
-        "senderAccount": "<A.ID>",
-        "receiverAccount": "<B.ID>",
+        "senderAccount": 0,
+        "receiverAccount": 1,
         "operationCurrency": "EUR",
         "orderType": "INCOME",
         "amount": 5.0

@@ -3,10 +3,11 @@ package com.rk.api;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Objects;
 import io.dropwizard.validation.ValidationMethod;
 import org.apache.commons.lang3.ObjectUtils;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -28,8 +31,10 @@ public class Order implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
-    private OffsetDateTime creationDate;
+    private Date creationDate;
 
     @Column(name = "receiver_account")
     private Integer receiverAccount;
@@ -123,11 +128,11 @@ public class Order implements Serializable {
         this.orderType = orderType;
     }
 
-    public OffsetDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(OffsetDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

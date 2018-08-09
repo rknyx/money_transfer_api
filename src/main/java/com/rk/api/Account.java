@@ -25,7 +25,6 @@ public class Account {
     @Column(name = "currency_code")
     private Currency currency;
 
-    @NotNull
     @Column(name = "balance")
     private BigDecimal balance;
 
