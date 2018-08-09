@@ -1,0 +1,7 @@
+{
+  "receiverAccount": 1,
+  "senderAccount": 2,
+  "operationCurrencyCode": "USD",
+  "amount": 100,
+  "description": "descr"
+}

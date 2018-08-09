@@ -1,0 +1,7 @@
+{
+  "receiverAccount": 1,
+  "senderAccount": 2,
+  "amount": 100,
+  "orderType": "transfer",
+  "description": "descr"
+}

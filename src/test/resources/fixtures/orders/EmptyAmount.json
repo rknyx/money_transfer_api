@@ -1,0 +1,7 @@
+{
+  "receiverAccount": 1,
+  "senderAccount": 2,
+  "operationCurrencyCode": "USD",
+  "orderType": "transfer",
+  "description": "descr"
+}
